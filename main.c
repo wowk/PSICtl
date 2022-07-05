@@ -19,7 +19,12 @@ enum action_e {
 };
 
 static void usage(void) {
+    fprintf(stderr, "PSI Encoder & Decoder\n");
     fprintf(stderr, "psictl <-d | -e> [ -i <file> ] [ -o <file> ]\n");
+    fprintf(stderr, "   -d          decode PSI file to XML\n");
+    fprintf(stderr, "   -e          encode XML file to PSI\n");
+    fprintf(stderr, "   -i          input file name, If not given, read data from stdin\n");
+    fprintf(stderr, "   -o          output file name, If not given, write data to stdout\n");
     exit(-1);
 }
 
@@ -229,7 +234,7 @@ int main(int argc, char * argv[]) {
     const char * output = NULL;
     const char * input = NULL;
 
-    while(-1 != (opcode = getopt(argc, argv, "dei:o:"))) {
+    while(-1 != (opcode = getopt(argc, argv, "hdei:o:"))) {
         switch(opcode) {
             case 'd':
                 action = ACT_DECODE;
@@ -246,7 +251,8 @@ int main(int argc, char * argv[]) {
             case 'o':
                 output = optarg;
                 break;
-
+            
+            case 'h':
             case '?':
             default:
                 usage();
