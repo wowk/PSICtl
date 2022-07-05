@@ -105,7 +105,7 @@ typedef struct {
  *
  * @return CmsRet enum
  */
-int cmsLzw_initEncoder(LZWEncoderState **s, uint8_t *outbuf, uint32_t outsize);
+int lzw_init_encoder(LZWEncoderState **s, uint8_t *outbuf, uint32_t outsize);
 
 
 /** LZW main encode/compress function
@@ -115,26 +115,26 @@ int cmsLzw_initEncoder(LZWEncoderState **s, uint8_t *outbuf, uint32_t outsize);
  * @param insize (IN) Size of input buffer
  * @return Number of bytes written or -1 on error
  */
-int32_t cmsLzw_encode(LZWEncoderState *s, const uint8_t *inbuf, uint32_t insize);
+int32_t lzw_encode(LZWEncoderState *s, const uint8_t *inbuf, uint32_t insize);
 
 
 /** Write end code and flush bitstream
  *
  * @param s (IN) LZW encoder state
  * @return Number of bytes written or -1 on error.  Note the count here should
- *         be added to the count returned by cmsLzw_encode for the total number
+ *         be added to the count returned by lzw_encode for the total number
  *         of encoded/compressed bytes.
  */
-int32_t cmsLzw_flushEncoder(LZWEncoderState *s);
+int32_t lzw_flush_encoder(LZWEncoderState *s);
 
 
 /** Destroy the LZW encoder.
- *  Note the output buffer that was passed into the cmsLzw_initEncoder
+ *  Note the output buffer that was passed into the lzw_init_encoder
  *  is not freed.  That buffer is the responsibility of the caller.
  *
  * @param s      (IN) LZW encoder state
  */
-void cmsLzw_cleanupEncoder(LZWEncoderState **s);
+void lzw_cleanup_encoder(LZWEncoderState **s);
 
 
 /** Create and Initialize a LZW decoder
@@ -145,7 +145,7 @@ void cmsLzw_cleanupEncoder(LZWEncoderState **s);
  *
  * @return CmsRet enum
  */
-int cmsLzw_initDecoder(LZWDecoderState **s, uint8_t *inbuf, uint32_t inbuf_size);
+int lzw_init_decoder(LZWDecoderState **s, uint8_t *inbuf, uint32_t inbuf_size);
 
 
 /** Decode given number of bytes
@@ -158,15 +158,15 @@ int cmsLzw_initDecoder(LZWDecoderState **s, uint8_t *inbuf, uint32_t inbuf_size)
  *
  * @return number of bytes decoded, or -1 on error.
  */
-int32_t cmsLzw_decode(LZWDecoderState *s, uint8_t *outbuf, uint32_t outlen);
+int32_t lzw_decode(LZWDecoderState *s, uint8_t *outbuf, uint32_t outlen);
 
 
 /** Destroy the LZW Decoder.
  *
- * Note the input buffer that was passed into cmsLzw_initDecoder is not freed.
+ * Note the input buffer that was passed into lzw_init_decoder is not freed.
  * That buffer is the responsibility of the caller.
  */
-void cmsLzw_cleanupDecoder(LZWDecoderState **s);
+void lzw_cleanup_Decoder(LZWDecoderState **s);
 
 
 

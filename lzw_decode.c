@@ -72,7 +72,7 @@ void ff_lzw_decode_tail(LZWDecoderState *s)
 }
 
 
-int cmsLzw_initDecoder(LZWDecoderState **p, uint8_t *inbuf, uint32_t inbuf_size)
+int lzw_init_decoder(LZWDecoderState **p, uint8_t *inbuf, uint32_t inbuf_size)
 {
     LZWDecoderState *s;
     int mode = FF_LZW_TIFF;  /* always use TIFF mode */
@@ -116,7 +116,7 @@ int cmsLzw_initDecoder(LZWDecoderState **p, uint8_t *inbuf, uint32_t inbuf_size)
 }
 
 
-int32_t cmsLzw_decode(LZWDecoderState *s, uint8_t *outbuf, uint32_t outlen)
+int32_t lzw_decode(LZWDecoderState *s, uint8_t *outbuf, uint32_t outlen)
 {
     uint32_t l;
     int c, code, oc, fc;
@@ -203,7 +203,7 @@ int32_t cmsLzw_decode(LZWDecoderState *s, uint8_t *outbuf, uint32_t outlen)
 
 
 
-void cmsLzw_cleanupDecoder(LZWDecoderState **s)
+void lzw_cleanup_Decoder(LZWDecoderState **s)
 {
    free(*s);
    *s = NULL;

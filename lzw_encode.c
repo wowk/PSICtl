@@ -259,7 +259,7 @@ static int32_t writtenBytes(LZWEncoderState *s){
 }
 
 
-int cmsLzw_initEncoder(LZWEncoderState **p, uint8_t *outbuf, uint32_t outsize)
+int lzw_init_encoder(LZWEncoderState **p, uint8_t *outbuf, uint32_t outsize)
 {
    LZWEncoderState *s;
 
@@ -291,7 +291,7 @@ int cmsLzw_initEncoder(LZWEncoderState **p, uint8_t *outbuf, uint32_t outsize)
 }
 
 
-int cmsLzw_encode(LZWEncoderState *s, const uint8_t *inbuf, uint32_t insize)
+int lzw_encode(LZWEncoderState *s, const uint8_t *inbuf, uint32_t insize)
 {
     uint32_t i;
     uint32_t round_error=5;
@@ -326,7 +326,7 @@ int cmsLzw_encode(LZWEncoderState *s, const uint8_t *inbuf, uint32_t insize)
 }
 
 
-int32_t cmsLzw_flushEncoder(LZWEncoderState * s)
+int32_t lzw_flush_encoder(LZWEncoderState * s)
 {
     if (s->last_code != -1)
         writeCode(s, s->last_code);
@@ -339,7 +339,7 @@ int32_t cmsLzw_flushEncoder(LZWEncoderState * s)
 }
 
 
-void cmsLzw_cleanupEncoder(LZWEncoderState **s)
+void lzw_cleanup_encoder(LZWEncoderState **s)
 {
    free(*s);
    *s = NULL;

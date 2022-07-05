@@ -117,12 +117,12 @@ static int do_decode_action(int infd, int outfd) {
         goto out;
     }
 
-    if(0 > (ret = cmsLzw_initDecoder(&decodeCtx, &data[offset], datasize - offset))) {
+    if(0 > (ret = lzw_init_decoder(&decodeCtx, &data[offset], datasize - offset))) {
         fprintf(stderr, "failed to init decoder: %m\n");
         goto out;
     }
  
-    if(0 > (datasize = cmsLzw_decode(decodeCtx, buffer, buffsize))) {
+    if(0 > (datasize = lzw_decode(decodeCtx, buffer, buffsize))) {
         fprintf(stderr, "failed to decode data: %m\n");
         ret = -1;
         goto out;
@@ -145,7 +145,7 @@ out:
         free(buffer);
     }
     if(decodeCtx) {
-        cmsLzw_cleanupDecoder(&decodeCtx);
+        lzw_cleanup_Decoder(&decodeCtx);
     }
 
     return ret;
@@ -176,7 +176,7 @@ static int do_encode_action(int infd, int outfd) {
     }
 
     offset = COMPRESSED_CONFIG_HEADER_LENGTH + CRC_CONFIG_HEADER_LENGTH;
-    if(0 > (ret = cmsLzw_initEncoder(&encodeCtx, 
+    if(0 > (ret = lzw_init_encoder(&encodeCtx, 
                     (uint8_t*)&buffer[offset], buffsize - offset))) 
     {
         fprintf(stderr, "failed to init decoder: %m\n");
@@ -184,13 +184,13 @@ static int do_encode_action(int infd, int outfd) {
     }
 
     //printf("%s : %lu\n", data, datasize);
-    if(0 > (datasize = cmsLzw_encode(encodeCtx, (uint8_t*)data, datasize))) {
+    if(0 > (datasize = lzw_encode(encodeCtx, (uint8_t*)data, datasize))) {
         fprintf(stderr, "failed to encode data\n");
         ret = -1;
         goto out;
     }
     
-    if(0 > (datasize += cmsLzw_flushEncoder(encodeCtx))) {
+    if(0 > (datasize += lzw_flush_encoder(encodeCtx))) {
         fprintf(stderr, "failed to flush encode data\n");
         ret = -1;
         goto out;
@@ -219,7 +219,7 @@ out:
         free(buffer);
     }
     if(encodeCtx) {
-        cmsLzw_cleanupEncoder(&encodeCtx);
+        lzw_cleanup_encoder(&encodeCtx);
     }
 
     return ret;
