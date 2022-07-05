@@ -1,1 +1,1 @@
-This tool is to use as a decoder & encoder for Broadcom PSI file
+This tool is a decoder & encoder for Broadcom PSI file
